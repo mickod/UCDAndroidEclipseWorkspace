@@ -3254,3 +3254,107 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.
 
 !ENTRY org.eclipse.core.net 1 0 2013-03-23 09:13:35.181
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2013-03-23 10:58:18.188 -----------------------------------------------
+eclipse.buildId=v21.1.0-569685
+java.version=1.6.0_41
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -keyring /Users/mickod/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -keyring /Users/mickod/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-03-23 10:58:26.733
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.resources 4 2 2013-03-23 10:59:58.117
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:442)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:424)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.doClean(PreCompilerBuilder.java:764)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.clean(PreCompilerBuilder.java:736)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:730)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:422)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog.doClean(CleanDialog.java:313)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog$1.runInWorkspace(CleanDialog.java:151)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.resources 4 75 2013-03-23 10:59:58.221
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 com.android.ide.eclipse.adt 4 75 2013-03-23 10:59:58.221
+!MESSAGE Errors running builder 'Android Pre Compiler' on project 'Practical4_Preferences'.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:442)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:424)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.doClean(PreCompilerBuilder.java:764)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.clean(PreCompilerBuilder.java:736)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:730)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:422)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog.doClean(CleanDialog.java:313)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog$1.runInWorkspace(CleanDialog.java:151)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.resources 4 2 2013-03-23 10:59:58.330
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:442)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:424)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.doClean(PreCompilerBuilder.java:764)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.build(PreCompilerBuilder.java:297)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.resources 4 75 2013-03-23 10:59:58.376
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 com.android.ide.eclipse.adt 4 75 2013-03-23 10:59:58.376
+!MESSAGE Errors running builder 'Android Pre Compiler' on project 'Practical4_Preferences'.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:442)
+	at com.android.ide.eclipse.adt.internal.lint.EclipseLintClient.clearMarkers(EclipseLintClient.java:424)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.doClean(PreCompilerBuilder.java:764)
+	at com.android.ide.eclipse.adt.internal.build.builders.PreCompilerBuilder.build(PreCompilerBuilder.java:297)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
