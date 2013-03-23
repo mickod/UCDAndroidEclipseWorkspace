@@ -13,6 +13,7 @@ local.properties
 .settings/
 .loadpath
 .apk
+.DS_Store
 
 # External tool builders
 .externalToolBuilders/
