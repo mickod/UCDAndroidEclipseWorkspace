@@ -1,7 +1,0 @@
-package com.example.layoutassignment;
-
-import android.app.Activity;
-
-public class TableFeedbackActivity extends Activity {
-
-}

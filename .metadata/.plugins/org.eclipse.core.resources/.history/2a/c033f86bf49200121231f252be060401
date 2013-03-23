@@ -1,7 +1,0 @@
-package ie.ucd.onetwotwofive.practical4;
-
-import android.preference.PreferenceActivity;
-
-public class CoursesPreferencesActivity extends PreferenceActivity {
-
-}
