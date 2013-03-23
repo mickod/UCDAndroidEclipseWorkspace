@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fruitOverallView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+   <TextView
+        android:id="@+id/courseListTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/course_list_title"
+        android:background="@android:color/darker_gray"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+  
+   <ListView 
+      android:id="@android:id/list" 
+      android:layout_below="@+id/courseListTitle"
+      android:layout_above="@+id/buttonArea"
+      android:layout_height="wrap_content" 
+      android:layout_width="fill_parent" > 
+   </ListView>
+	
+	<LinearLayout
+	    android:id="@+id/buttonArea"
+	    android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    >
+    
+	    <Button
+	        android:id="@+id/preferencesButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:layout_weight="1"
+	        android:text="@string/preferences_button_label" />
+	    
+	   	<Button
+	        android:id="@+id/extraButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:layout_weight="1"
+	        android:text="@string/extra_button_label" />
+    
+    </LinearLayout>
+
+</RelativeLayout>

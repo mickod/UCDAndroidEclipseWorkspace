@@ -1,0 +1,15 @@
+package ie.ucd.onetwotwofive.practical4;
+
+import android.app.Application;
+
+public class CompCourseApp extends Application {
+	
+	@Override
+	public void onCreate()
+	{
+		super.onCreate();
+
+		// Check if the database exists and if not create it
+		
+	}
+}

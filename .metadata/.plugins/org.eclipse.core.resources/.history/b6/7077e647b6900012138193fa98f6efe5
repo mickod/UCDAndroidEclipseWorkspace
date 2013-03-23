@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" > 
+	
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Select Layout" />
+        
+    	<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:padding="5dp"
+		    android:layout_gravity="center"
+		    android:orientation="horizontal" >
+
+		        <Button
+		            android:id="@+id/button1_Linear"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:text="Linear Layout" />
+		
+		        <Button
+		            android:id="@+id/button2_relative"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:text="Relative Layout" />
+		
+		        <Button
+		            android:id="@+id/button3_table"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:text="Table Layout" />
+	</LinearLayout>
+
+</LinearLayout>
+

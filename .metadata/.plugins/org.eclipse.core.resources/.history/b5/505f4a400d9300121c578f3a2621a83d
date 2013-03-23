@@ -1,0 +1,7 @@
+package ie.ucd.onetwotwofive.practical4;
+
+import android.app.Application;
+
+public class CompCourseApp extends Application {
+
+}

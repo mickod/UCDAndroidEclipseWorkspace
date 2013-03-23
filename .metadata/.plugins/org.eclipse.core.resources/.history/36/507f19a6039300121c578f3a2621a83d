@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory
+        android:title="Background Colour">
+        <ListPreference
+            android:title="Pick your favourite color"
+            android:key="colourListPref"
+            android:defaultValue="digiGreen"
+            android:entries="@array/backgroundColourArray"
+            android:entryValues="@array/backgroundColourValues" />
+    </PreferenceCategory>
+    
+</PreferenceScreen>

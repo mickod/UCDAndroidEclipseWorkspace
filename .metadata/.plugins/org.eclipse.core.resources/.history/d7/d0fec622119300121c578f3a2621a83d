@@ -1,0 +1,58 @@
+package ie.ucd.onetwotwofive.practical4;
+
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import ie.ucd.onetwotwofive.practical4.CompCourse;
+
+public class CompCourseDataProvider extends ContentProvider {
+	
+    private static final String DATABASE_NAME = "course_info.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String NOTES_TABLE_NAME = "courses";
+
+
+	@Override
+	public int delete(Uri arg0, String arg1, String[] arg2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getType(Uri arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Uri insert(Uri arg0, ContentValues arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + NOTES_TABLE_NAME + " ("
+                + "COURSE_NAME" + " TEXT PRIMARY KEY,"
+                + "COURSE_CREDITS" + " INTEGER,"
+                + "COURSE_DESCRIPTION" + " TEXT,"
+                + ");");
+    }
+
+
+	@Override
+	public Cursor query(Uri arg0, String[] arg1, String arg2, String[] arg3,
+			String arg4) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+/Users/mickod/Desktop/AMOD/UCD/UCDAndroidEclipseWorkspace/.metadata/.plugins/org.eclipse.jdt.core
+752096294.index
+1002358089.index
+33484746.index
+1584789876.index

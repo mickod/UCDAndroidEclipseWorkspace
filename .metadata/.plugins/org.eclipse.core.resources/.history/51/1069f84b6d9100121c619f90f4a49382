@@ -1,0 +1,10 @@
+package ie.ucd.onetwotwofive.practical2;
+
+public class CompCourse {
+	
+	public String name;
+	public int credits;
+	public String dscription;
+	
+
+}

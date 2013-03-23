@@ -1,0 +1,52 @@
+package ie.ucd.onetwotwofive.practical4;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+public class CoursesDBSQLiteOpenHandler extends SQLiteOpenHelper {
+
+    private static final String DATABASE_NAME = "course_info.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String NOTES_TABLE_NAME = "courses";
+    
+	static final String[] COURSES = new String[] { 	"COMP41150 Mobile Application Development 2013", 
+		"ACM40570  Mathematical Methods", 
+		"COMP30120* Machine Learning", 
+		"COMP30150 Information Systems II", 
+		"COMP30220 Distributed Systems 2012-2013",
+		"COMP30230 Connectionist Computing", 
+		"COMP30250 Parallel and Cluster Computing 2012-2013", 
+		"COMP30260 Artificial Intelligence for Games and Puzzles",
+		"COMP30270 Computer Graphics II", 
+		"COMP40010 Performance of Computer Systems" };
+
+	CoursesDBSQLiteOpenHandler(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+	@Override
+    public void onCreate(SQLiteDatabase db) {
+		//Create the table
+        db.execSQL("CREATE TABLE " + NOTES_TABLE_NAME + " ("
+                + "COURSE_NAME" + " TEXT PRIMARY KEY,"
+                + "COURSE_CREDITS" + " INTEGER,"
+                + "COURSE_DESCRIPTION" + " TEXT,"
+                + ");");
+        
+        //Add the initial data
+        for (int i =0; i < COURSES.length; i++) {
+        	db.execSQL("INSERT INTO courses (COURSE_NAME, COURSE_CREDITS, COURSE_DESCRIPTION) " +
+        				"VALUES ("+ COURSES[i][0] "," + COURSES[i][0] + " , " + COURSES[i][0])));
+        }
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("CourseDatabaseHelper", "Upgrading database from version " + oldVersion + " to "
+                + newVersion + ", which will destroy all old data");
+        db.execSQL("DROP TABLE IF EXISTS notes");
+        onCreate(db);
+    }
+}
