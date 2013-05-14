@@ -25,10 +25,13 @@
 	    <Button
 	        android:id="@+id/liveMeshDisplayBackButton"
 	        android:layout_width="91dp"
-	        android:layout_height="19dp"
-	        android:textSize="12sp"
+	        android:layout_height="26dp"
 	        android:layout_gravity="center"
-	        android:text="@string/live_mesh_display_back_button_label" />
+	        android:minHeight="0dp"
+	        android:minWidth="0dp"
+	        android:padding="0dp"
+	        android:text="@string/live_mesh_display_back_button_label"
+	        android:textSize="12sp" />
 	    
     </LinearLayout>
 
