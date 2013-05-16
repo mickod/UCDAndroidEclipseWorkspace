@@ -35,5 +35,8 @@
     
     <!-- Live mesh Display Activity Strings -->
     <string name="live_mesh_display_back_button_label">Back</string>
+    
+    <!-- User messages from activities -->
+    <string name="connection_problem">There was a problem with the connection</string>
 
 </resources>
