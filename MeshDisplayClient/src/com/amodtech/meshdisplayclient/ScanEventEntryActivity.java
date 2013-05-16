@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 public class ScanEventEntryActivity extends Activity {
+	/*
+	 * This class is an Activity that allows a user to scan event and client data to join
+	 * an event
+	 */
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

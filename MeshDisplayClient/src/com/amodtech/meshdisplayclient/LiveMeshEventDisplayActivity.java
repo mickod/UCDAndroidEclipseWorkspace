@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 
 public class LiveMeshEventDisplayActivity extends Activity {
+	/*
+	 * This class is is an Activity that implements the client display when part of a 
+	 * live event.
+	 */
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

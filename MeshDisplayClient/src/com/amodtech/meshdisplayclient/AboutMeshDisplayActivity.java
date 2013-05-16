@@ -9,6 +9,9 @@ import android.widget.Button;
 
 
 public class AboutMeshDisplayActivity extends Activity {
+	/*
+	 * This class is provides user help for the application
+	 */
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

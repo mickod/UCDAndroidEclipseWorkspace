@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainMenuActivity extends Activity {
+	/*
+	 * This class is the main menu Activity for the applictaion
+	 */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
