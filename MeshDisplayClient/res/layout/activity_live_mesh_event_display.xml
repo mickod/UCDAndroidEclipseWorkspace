@@ -12,27 +12,47 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:textSize="260sp"
        android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	<LinearLayout
+    
+	<RelativeLayout
 	    android:id="@+id/buttonArea"
 	    android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-	    android:orientation="vertical"
-	    >
-    
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	    
 	    <Button
 	        android:id="@+id/liveMeshDisplayBackButton"
 	        android:layout_width="91dp"
 	        android:layout_height="26dp"
-	        android:layout_gravity="center"
 	        android:minHeight="0dp"
 	        android:minWidth="0dp"
 	        android:padding="0dp"
 	        android:text="@string/live_mesh_display_back_button_label"
-	        android:textSize="12sp" />
+	        android:textSize="12sp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_toLeftOf="@+id/centerPoint" />
 	    
-    </LinearLayout>
+	   	<TextView
+	        android:id="@+id/centerPoint"
+	        android:text=""
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true" />
+	    
+	 	<Button
+	        android:id="@+id/liveMeshDisplayEventInfoButton"
+	        android:layout_width="91dp"
+	        android:layout_height="26dp"
+	        android:minHeight="0dp"
+	        android:minWidth="0dp"
+	        android:padding="0dp"
+	        android:text="@string/live_mesh_display_event_info_button_label"
+	        android:textSize="12sp" 
+	        android:layout_alignParentRight="true"
+	        android:layout_toRightOf="@+id/centerPoint" />
+
+	</RelativeLayout>
 
 </RelativeLayout>

@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+    
+   <TextView
+       android:id="@+id/eventInfoTitle"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:text="@string/event_info_title"
+       android:textAppearance="?android:attr/textAppearanceLarge" />
+   
+   <RelativeLayout
+	    android:id="@+id/eventIDArea"
+	    android:layout_below="@+id/eventInfoTitle"
+	    android:layout_marginTop="40dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	    
+	    <TextView
+	        android:id="@+id/eventIDLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="50dp"
+	        android:text="@string/event_id_label" />
+	    
+	 	<TextView
+	 	    android:id="@+id/eventID"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_marginRight="50dp"
+	 	    android:layout_alignParentRight="true"
+	 	    android:text="" />
+	</RelativeLayout>
+	
+    <RelativeLayout
+	    android:id="@+id/clientIDArea"
+	    android:layout_below="@+id/eventIDArea"
+	    android:layout_marginTop="10dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	    
+	    <TextView
+	        android:id="@+id/clientIDLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="50dp"
+	        android:text="@string/client_id_label" />
+	    
+	 	<TextView
+	 	    android:id="@+id/clientID"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_marginRight="50dp"
+	 	    android:layout_alignParentRight="true"
+	 	    android:text="" />
+	</RelativeLayout>
+	
+    <RelativeLayout
+	    android:id="@+id/latitudeArea"
+	    android:layout_below="@+id/clientIDArea"
+	    android:layout_marginTop="10dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	    
+	    <TextView
+	        android:id="@+id/latitudeIDLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="50dp"
+	        android:text="@string/latitude_id_label" />
+	    
+	 	<TextView
+	 	    android:id="@+id/latitude"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_marginRight="50dp"
+	 	    android:layout_alignParentRight="true"
+	 	    android:text="" />
+
+	</RelativeLayout>
+	
+    <RelativeLayout
+	    android:id="@+id/longitudeArea"
+	    android:layout_below="@+id/latitudeArea"
+	    android:layout_marginTop="10dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	    
+	    <TextView
+	        android:id="@+id/longitudeIDLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="50dp"
+	        android:text="@string/longitude_id_label" />
+	    
+	 	<TextView
+	 	    android:id="@+id/longitude"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_marginRight="50dp"
+	 	    android:layout_alignParentRight="true"
+	 	    android:text="" />
+	</RelativeLayout>
+
+	
+	<LinearLayout
+	    android:id="@+id/buttonArea"
+	    android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    >
+    
+	    <Button
+	        android:id="@+id/eventInfoBackButton"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:text="@string/general_back_button_label" />
+	    
+    </LinearLayout>
+
+</RelativeLayout>

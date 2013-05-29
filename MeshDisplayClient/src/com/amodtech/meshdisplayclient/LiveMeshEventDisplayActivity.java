@@ -20,27 +20,49 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class LiveMeshEventDisplayActivity extends Activity {
+public class LiveMeshEventDisplayActivity extends Activity implements LocationListener{
 	/*
 	 * This class is is an Activity that implements the client display when the client is part of a 
 	 * live event.
 	 */
 	
 	private GetTextFromServerTask pollTask;
+	private LocationManager locationManager;
+	private String loctaionProvider = null;
+	private Criteria loctaionCriteria = new Criteria();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_live_mesh_event_display);
+		
+		//Set up the location provider - we set fine accuracy as that is all that is of interest to us
+		//for mesh display. If we can only get coarse accuracy it is of little use - in fact even
+		//fine accuracy is likely to not meet our needs but this will allow us experiment and test it
+		//in different environments.
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		//loctaionCriteria.setAccuracy(Criteria.ACCURACY_FINE);
+		loctaionProvider = locationManager.getBestProvider(loctaionCriteria, false);
+		Log.d("LiveMeshEventDisplayActivity onCreate","locationProvider: " + loctaionProvider);
+		Location lastKnowLoctation = locationManager.getLastKnownLocation(loctaionProvider);
+		if (lastKnowLoctation != null) {
+			Log.d("LiveMeshEventDisplayActivity onCreate","lastKnowLoctation: " + lastKnowLoctation.toString());
+		} else {
+			Log.d("LiveMeshEventDisplayActivity onCreate","lastKnowLoctation is null");
+		}
 		
 		//Create an Asynch task to poll the server for the text to display. Note a Service
 		//is not used here as this task is tightly coupled to this activity - we will stop
@@ -58,24 +80,45 @@ public class LiveMeshEventDisplayActivity extends Activity {
             	leaveEventTask.execute();
             }
         });
+        
+        //Set the info button listener
+        final Button infoButton = (Button) findViewById(R.id.liveMeshDisplayEventInfoButton);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	//Start the event info activity
+                Intent intent = new Intent(v.getContext(), EventInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 		
 	}
 	
 	@Override
 	protected void onPause() {
+		Log.d("LiveMeshEventDisplayActivity","onPause");
 		
 		//Stop the server polling
 		if (pollTask != null) {
 			pollTask.cancel(true);
 			pollTask = null;
 		}
+		
+		//Stop location updates
+		locationManager.removeUpdates(this);
+		
 		super.onPause();
 	}
 	
 	@Override
 	protected void onResume() {
+		Log.d("LiveMeshEventDisplayActivity","onResume");
 		
 		super.onResume();
+		
+		//Request location updates
+		//loctaionCriteria.setAccuracy(Criteria.ACCURACY_FINE);
+		loctaionProvider = locationManager.getBestProvider(loctaionCriteria, false);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, this);
 		
 		//Restart the server polling - it should not exist but check first
 		if (pollTask != null) {
@@ -83,6 +126,46 @@ public class LiveMeshEventDisplayActivity extends Activity {
 		}
 		pollTask = new GetTextFromServerTask();
 		pollTask.execute();
+	}
+	
+	@Override
+	protected void onStop() {
+		Log.d("LiveMeshEventDisplayActivity","onStop");
+		
+		//Stop the server polling
+		if (pollTask != null) {
+			pollTask.cancel(true);
+			pollTask = null;
+		}
+		super.onStop();
+	}
+	
+	@Override
+	public void onLocationChanged(Location location) {
+		//This is the listener method for loctaion updates - it will be called when the users location changes.
+		//We update the MeshEventEngine with the new location details and they will then be reported to the server
+		//during the regular poll. This is experimental functionality at this time to see how useful the location
+		//data is for showing the relative positions of phones in a display - it is expecyed that loctaion dta by itelf 
+		//will not be enough for the granularity we require.
+    	MeshDisplayApplictaion appObject = (MeshDisplayApplictaion)LiveMeshEventDisplayActivity.this.getApplicationContext();
+    	MeshDisplayClientEngine meshDisplayEngine = appObject.getAppMeshDisplayEngine();
+    	meshDisplayEngine.deviceLatitude = (int) (location.getLatitude());
+		meshDisplayEngine.deviceLongitude = (int) (location.getLongitude());
+	}
+	
+	@Override
+	public void onProviderDisabled(String arg0) {
+		//Ignore for now	
+	}
+
+	@Override
+	public void onProviderEnabled(String arg0) {
+		//Ignore for now
+	}
+
+	@Override
+	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+		//Ignore for now
 	}
 	
 	private class GetTextFromServerTask extends AsyncTask<String, ResponseInfo, Void> {
@@ -97,17 +180,22 @@ public class LiveMeshEventDisplayActivity extends Activity {
         protected Void doInBackground(String... args) {
             //Poll the server and send the POST request to the HTTP server and check that an OK is received
         	
-        	//Continually pole the server until the task is cancelled
+        	//Continually pole the server until the task is cancelled - include the current location longitude
+        	//and latitude data in the request 
         	while(true) {
 	        	InputStream is = null;
 	        	int response = 0;
 	            try {
-	                URL url = new URL(meshDisplayEngine.getServerBaseURL() + "/text_for_client/event_id" 
-	                				+ meshDisplayEngine.eventID + "/client_id/" + meshDisplayEngine.clintID);
+	                URL url = new URL(meshDisplayEngine.getServerBaseURL() + "/text_for_client/event_id/" 
+	                				+ meshDisplayEngine.eventID 
+	                				+ "/client_id/" + meshDisplayEngine.clintID 
+	                				+ "/lat/" + meshDisplayEngine.deviceLatitude
+	                				+ "/long/" + meshDisplayEngine.deviceLongitude);
 	                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	                conn.setReadTimeout(10000 /* milliseconds */);
 	                conn.setConnectTimeout(15000 /* milliseconds */);
 	                conn.setRequestMethod("GET");
+	                conn.setRequestProperty("accept","application/json");
 	                conn.setDoInput(true);
 	                
 	                // Starts the query
@@ -116,13 +204,14 @@ public class LiveMeshEventDisplayActivity extends Activity {
 	                //Check the response code and decode the text sent by the server
 	                response = conn.getResponseCode();
 	                is = conn.getInputStream();
-	                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+	                BufferedReader reader = new BufferedReader(new InputStreamReader(is), 8192);
 	                String line = "";
 	                StringBuffer receivedMessage = new StringBuffer();
 	                while ((line = reader.readLine()) != null) {
 	                	receivedMessage = receivedMessage.append(line);
 	                }
 	                reader.close();
+	                Log.d("LiveMeshEventDisplayActivity GetTextFromServerTask", "receivedMessage: " + receivedMessage);
 	                JSONObject jsonResponseObject = new JSONObject(receivedMessage.toString());
 	                String textToDisplay = jsonResponseObject.getString("client_text");
 	                publishProgress(new ResponseInfo(response, textToDisplay));
@@ -154,19 +243,21 @@ public class LiveMeshEventDisplayActivity extends Activity {
 				} catch (InterruptedException e) {
 					//Interrupted while sleeping - simply log this
 					Log.d("LiveMeshEventDisplayActivity GetTextFromServerTask", "interupted while sleeping");
+					return null;
 				}
         	}
         }
-       
-        
+              
         @Override
         protected void onProgressUpdate(ResponseInfo... responseInfo) {
         	//The next text sent from the server will be reported in the respnse Info
         	
             //Check the result and update the text to display if the response code was OK
-        	if (responseInfo[0].responseCode == 200) {
+        	if (responseInfo[0].responseCode == 200 | responseInfo[0].responseCode == 201) {
         		//Update the text to display
-        		meshDisplayEngine.textToDisplay = responseInfo[0].textToDisplay;
+        		TextView textDisplay = (TextView) findViewById(R.id.liveMeshDisplayText);
+        		textDisplay.setText(responseInfo[0].textToDisplay);
+        		Log.d("LiveMeshEventDisplayActivity GetTextFromServerTask","-> onPostExecute: text: " + responseInfo[0].textToDisplay);
         	} else {
         		//Log an issue
         		Log.d("LiveMeshEventDisplayActivity GetTextFromServerTask","-> onPostExecute: unexpecetd resposne code: " + responseInfo[0].responseCode);
@@ -202,7 +293,7 @@ public class LiveMeshEventDisplayActivity extends Activity {
         	InputStream is = null;
         	int response = 0;
             try {
-                URL url = new URL(meshDisplayEngine.getServerBaseURL() + "/event_client_delete");
+                URL url = new URL(meshDisplayEngine.getServerBaseURL() + "/event_client_remove");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000 /* milliseconds */);
                 conn.setConnectTimeout(15000 /* milliseconds */);
@@ -216,7 +307,7 @@ public class LiveMeshEventDisplayActivity extends Activity {
                 params.add(new BasicNameValuePair("client_id", meshDisplayEngine.clintID));
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
+                        new OutputStreamWriter(os, "UTF-8"), 8192);
                 writer.write(getQuery(params));
                 writer.close();
                 os.close();
@@ -227,6 +318,14 @@ public class LiveMeshEventDisplayActivity extends Activity {
                 //For this case just check the response code - we are not interested in the response itself
                 response = conn.getResponseCode();
                 is = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is), 8192);
+                String line = "";
+                StringBuffer receivedMessage = new StringBuffer();
+                while ((line = reader.readLine()) != null) {
+                	receivedMessage = receivedMessage.append(line);
+                }
+                Log.d("LiveMeshEventDisplayActivity LeaveEventTask", "response message: " + receivedMessage);
+                reader.close();
                 
             } catch (IOException e) {
 				//Some IO problem occurred - dump stack and inform caller

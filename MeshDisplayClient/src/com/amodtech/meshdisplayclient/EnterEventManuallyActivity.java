@@ -93,7 +93,7 @@ public class EnterEventManuallyActivity extends Activity {
                 params.add(new BasicNameValuePair("client_id", meshDisplayEngine.clintID));
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
+                        new OutputStreamWriter(os, "UTF-8"), 8192);
                 writer.write(getQuery(params));
                 writer.close();
                 os.close();

@@ -22,7 +22,9 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_centerHorizontal="true"
-       android:text="@string/about_mesh_display_title"
+       android:layout_marginTop="30dp"
+       android:textSize="16sp"
+       android:text="@string/about_mesh_display_text"
        android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 	<LinearLayout

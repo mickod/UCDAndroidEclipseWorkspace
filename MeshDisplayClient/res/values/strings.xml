@@ -5,6 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     
+    <!-- General Strings -->
+    <string name="general_back_button_label">back</string>
+    
     <!-- Main menu strings -->
     <string name="enter_event_button_label">Enter Event Manually</string>
     <string name="scan_button_label">Scan To Enter Event</string>
@@ -15,6 +18,13 @@
     <!-- About Mesh Display Activity strings -->
     <string name="about_mesh_display_title">About Mesh Display</string>
     <string name="about_mesh_display_back_button_label">Back</string>
+    <string name="about_mesh_display_text">
+        Mesh Display allows multiple phones to be combined
+		to create dynamic displays.\n\nOnce a dsiplay event has been created you can enter it simply
+		by entering your event id and client id.\n\nNote that this app requires the server 
+		to be set up - please contact us on +353 87 7784955 to set this for you if you are
+		testing this app
+	</string>
     
     <!-- Enter event manually Activity strings -->
     <string name="enter_event_manaully_text_box_title">Enter Event Details</string>
@@ -35,6 +45,14 @@
     
     <!-- Live mesh Display Activity Strings -->
     <string name="live_mesh_display_back_button_label">Back</string>
+    <string name="live_mesh_display_event_info_button_label">Info</string>
+    
+    <!-- EventInfoActivity Strings -->
+    <string name="event_info_title">Event Info</string>
+    <string name="event_id_label">Event ID:</string>
+    <string name="client_id_label">Client ID:</string>
+    <string name="latitude_id_label">Latitude:</string>
+    <string name="longitude_id_label">Longitude:</string>
     
     <!-- User messages from activities -->
     <string name="connection_problem">There was a problem with the connection</string>
