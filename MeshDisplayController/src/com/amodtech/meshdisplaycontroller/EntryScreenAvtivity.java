@@ -11,7 +11,7 @@ import android.widget.ImageView;
 public class EntryScreenAvtivity extends Activity {
 
 	/*
-	 * This class is the main menu Activity for the applictaion
+	 * This class is the main menu Activity for the application
 	 */
 
 	@Override
@@ -39,17 +39,16 @@ public class EntryScreenAvtivity extends Activity {
         final Button menuAboutButton = (Button) findViewById(R.id.aboutButton);
         menuAboutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AboutMeshDisplayActivity.class);
+                Intent intent = new Intent(v.getContext(), AboutMeshControllerActivity.class);
                 startActivity(intent);
             }
-        });
-		
+        });	
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_menu, menu);
+		getMenuInflater().inflate(R.menu.entry_screen_avtivity, menu);
 		return true;
 	}
 
