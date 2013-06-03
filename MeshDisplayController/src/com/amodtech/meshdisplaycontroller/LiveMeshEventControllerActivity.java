@@ -8,23 +8,31 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+
+import com.amodtech.meshdisplaycontroller.R.id;
 
 import android.app.Activity;
-import android.location.LocationManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LiveMeshEventControllerActivity extends Activity implements View.OnTouchListener  {
 	/*
@@ -33,8 +41,7 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	
 	private PollServerForClients serverPollTask;
 	private ViewGroup eventDisplayArea;
-	private TextView clientText;
-	private HashMap<String, TextView> clientDisplayMap = new HashMap<String, TextView>();
+	private HashMap<String, View> clientDisplayMap = new HashMap<String, View>();
 	private int _xDelta;
 	private int _yDelta;
 	
@@ -43,21 +50,9 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_live_mesh_event_controller);
 		
-		//Text client display
-		eventDisplayArea = (ViewGroup)findViewById(R.id.mainEventDisplayArea);
-
-		clientText = new TextView(this);
-		clientText.setText("New Client...");
-
-	    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 50);
-	    layoutParams.leftMargin = 50;
-	    layoutParams.topMargin = 50;
-	    layoutParams.bottomMargin = -250;
-	    layoutParams.rightMargin = -250;
-	    clientText.setLayoutParams(layoutParams);
-
-	    clientText.setOnTouchListener(this);
-	    eventDisplayArea.addView(clientText);
+        //Hide the soft keyboard
+        getWindow().setSoftInputMode(
+        	      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	    
 		//Create an Asynch task to poll the server for client updates. Note a Service
 		//is not used here as this task is tightly coupled to this activity - we will stop
@@ -71,8 +66,7 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
             public void onClick(View v) {
             	finish();
             }
-        });
-		
+        });	
 	}
 
 	@Override
@@ -80,6 +74,7 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 		//This method allows a view be moved around in the parent view. This solution
 		//is based on the answer at: http://stackoverflow.com/questions/9398057/
 		//android-move-a-view-on-touch-move-action-move
+		
 	    final int X = (int) event.getRawX();
 	    final int Y = (int) event.getRawY();
 	    switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -96,8 +91,22 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	            break;
 	        case MotionEvent.ACTION_MOVE:
 	            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-	            layoutParams.leftMargin = X - _xDelta;
-	            layoutParams.topMargin = Y - _yDelta;
+	            if ((layoutParams.leftMargin > X - _xDelta)) {
+	            	Toast.makeText(getApplicationContext(), "Moving left " , Toast.LENGTH_SHORT).show();
+	            	if (view.getLeft() >10) {
+	            		layoutParams.leftMargin = X - _xDelta;
+	            	}
+	            }
+	            if ((layoutParams.leftMargin < X - _xDelta)) {
+	            	Toast.makeText(getApplicationContext(), "Moving Right " , Toast.LENGTH_SHORT).show();
+	            	Toast.makeText(getApplicationContext(), "getRight: " + Integer.toString(view.getRight()), Toast.LENGTH_SHORT).show();
+	            	if ( view.getParent() XXXXX get the width of the parent and subtract the getRight view.getRight() > 10) {
+	            		layoutParams.leftMargin = X - _xDelta;
+	            	}
+	            }
+	            if (view.getTop() > 10 & _yDelta < 10 ) {
+	            	layoutParams.topMargin = Y - _yDelta;
+	            }
 	            layoutParams.rightMargin = -250;
 	            layoutParams.bottomMargin = -250;
 	            view.setLayoutParams(layoutParams);
@@ -109,28 +118,46 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	
 	private void displayNewClient(MeshDisplayClient clientToDisplay) {
 		//This method add a new client to the event Display
+		
+		//Check if this is the controller and if so do not display it
+    	MeshDisplayControllerApplictaion appObject = (MeshDisplayControllerApplictaion)LiveMeshEventControllerActivity.this.getApplicationContext();
+    	MeshDisplayControllerEngine meshDisplayEngine = appObject.getAppMeshDisplayControllerEngine();
+		if(clientToDisplay.id.equalsIgnoreCase(meshDisplayEngine.getReservedControllerName()) ) {
+			return;
+		}
 		eventDisplayArea = (ViewGroup)findViewById(R.id.mainEventDisplayArea);
+		LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View clientPhoneView = inflater.inflate(R.layout.client_display_layout, null);
+		
+		//Create offset for display to stop it landing on top of the last one
+		int offsetMultiplier = clientDisplayMap.size();
+		int viewWidth = 200;
 
-		TextView clientTextView = new TextView(this);
-		clientTextView.setText(clientToDisplay.id);
-
-	    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 50);
-	    layoutParams.leftMargin = 50;
+	    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 220);
+	    layoutParams.leftMargin = 50 +(viewWidth*(1+offsetMultiplier));
 	    layoutParams.topMargin = 50;
 	    layoutParams.bottomMargin = -250;
 	    layoutParams.rightMargin = -250;
-	    clientTextView.setLayoutParams(layoutParams);
+	    clientPhoneView.setLayoutParams(layoutParams);
+	    
+	    //Set the client id display
+	    TextView clientIdTextView = (TextView)clientPhoneView.findViewById(id.clientIDTextView);
+	    clientIdTextView.setText(clientToDisplay.id);
+	    
+	    //Set the text to display
+	    EditText displayEditText = (EditText)clientPhoneView.findViewById(id.eventIdEditText);
+	    displayEditText.setText(clientToDisplay.textToDisplay);
 
-	    clientText.setOnTouchListener(this);
-	    eventDisplayArea.addView(clientTextView);
-	    clientDisplayMap.put(clientToDisplay.id, clientTextView);
+	    clientPhoneView.setOnTouchListener(this);
+	    eventDisplayArea.addView(clientPhoneView);
+	    clientDisplayMap.put(clientToDisplay.id, clientPhoneView);
 	}
 	
 	private void removeClientFromDisplay(String clientIDToRemove) {
 		//This method removes a client from the event Display
 		eventDisplayArea = (ViewGroup)findViewById(R.id.mainEventDisplayArea);
 
-		TextView clientTextViewToRemove = clientDisplayMap.get(clientIDToRemove);
+		View clientTextViewToRemove = clientDisplayMap.get(clientIDToRemove);
 		eventDisplayArea.removeView(clientTextViewToRemove);
 		clientDisplayMap.remove(clientIDToRemove);
 	}
@@ -144,6 +171,16 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 			serverPollTask.cancel(true);
 			serverPollTask = null;
 		}
+		
+		//Clear the known client list - it will be re-created when the activity starts polling the server again
+		//This is better than simply remembering them as we don't know how long the activity will have been
+		//paused for
+    	MeshDisplayControllerApplictaion appObject = (MeshDisplayControllerApplictaion)LiveMeshEventControllerActivity.this.getApplicationContext();
+    	MeshDisplayControllerEngine meshDisplayEngine = appObject.getAppMeshDisplayControllerEngine();
+    	meshDisplayEngine.clientsMap.clear();
+    	
+    	//Clear the display map
+    	this.clientDisplayMap.clear();
 
 		super.onPause();
 	}
@@ -203,8 +240,7 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	                }
 	                reader.close();
 	                Log.d("LiveMeshEventControllerActivity PollServerForClients", "receivedMessage: " + receivedMessage);
-	                JSONObject jsonResponseObject = new JSONObject(receivedMessage.toString());
-	                JSONArray clientList = jsonResponseObject.getJSONArray("client_text");
+	                JSONArray clientList = new JSONArray(receivedMessage.toString());
 	                publishProgress(new ResponseInfo(response, clientList));
 	            } catch (IOException e) {
 					//Some IO problem occurred - dump stack and inform caller
@@ -241,19 +277,19 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
               
         @Override
         protected void onProgressUpdate(ResponseInfo... responseInfo) {
-        	//The next text sent from the server will be reported in the respnse Info
-        	JSONArray clientList = responseInfo[0].clientList;
         	
             //Check the result and update the event display if the response code was OK
         	if (responseInfo[0].responseCode == 200 | responseInfo[0].responseCode == 201) {
         		//Update the event display - first check for any new devices added
             	MeshDisplayControllerApplictaion appObject = (MeshDisplayControllerApplictaion)LiveMeshEventControllerActivity.this.getApplicationContext();
             	MeshDisplayControllerEngine meshDisplayEngine = appObject.getAppMeshDisplayControllerEngine();
+            	
         		try {
         			//First read the JSON response into a new HashMap
         			//For large displays this is not particularly efficient and the server should respond with 
         			//added and deleted clients only, with a full refresh only done periodically. For this proof 
         			//of concept this is fine.
+        			JSONArray clientList = responseInfo[0].clientList;
         			HashMap<String, MeshDisplayClient> receivedClientsMap = new HashMap<String, MeshDisplayClient>();
         			for (int i = 0; i< clientList.length(); i++) {
         				MeshDisplayClient receivedClient = new MeshDisplayClient();

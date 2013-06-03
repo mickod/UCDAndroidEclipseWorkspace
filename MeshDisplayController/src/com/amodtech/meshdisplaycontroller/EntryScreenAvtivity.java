@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,6 +46,10 @@ public class EntryScreenAvtivity extends Activity {
         if (imageResID != 0) {
         	mainMenuImageView.setImageResource(imageResID);
         }
+        
+        //Hide the soft keyboard
+        getWindow().setSoftInputMode(
+        	      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
         //Set the enter manually button listener
         final Button menuManualEnterButton = (Button) findViewById(R.id.enterEventButton);
