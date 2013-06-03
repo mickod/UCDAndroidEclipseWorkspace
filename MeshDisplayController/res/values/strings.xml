@@ -27,5 +27,12 @@
 		to be set up - please contact us on +353 87 7784955 to set this for you if you are
 		testing this app
 	</string>
+	
+    <!-- Live Event Controller Activity strings -->
+    <string name="event_info_button_label">Info</string>
+    <string name="live_event_text_box_title">Live Mesh Display Event</string>
+	
+    <!-- User messages from activities -->
+    <string name="connection_problem">There was a problem with the connection</string>
 
 </resources>
