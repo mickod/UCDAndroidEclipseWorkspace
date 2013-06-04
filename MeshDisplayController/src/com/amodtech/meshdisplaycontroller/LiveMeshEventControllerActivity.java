@@ -72,9 +72,11 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
 		//This method allows a view be moved around in the parent view. This solution
-		//is based on the answer at: http://stackoverflow.com/questions/9398057/
+		//is a modified version of an approach at: http://stackoverflow.com/questions/9398057/
 		//android-move-a-view-on-touch-move-action-move
 		
+		int viewWidth = view.getLayoutParams().width;
+		int viewHeight = view.getLayoutParams().height;
 	    final int X = (int) event.getRawX();
 	    final int Y = (int) event.getRawY();
 	    switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -92,21 +94,46 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	        case MotionEvent.ACTION_MOVE:
 	            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
 	            if ((layoutParams.leftMargin > X - _xDelta)) {
-	            	Toast.makeText(getApplicationContext(), "Moving left " , Toast.LENGTH_SHORT).show();
-	            	if (view.getLeft() >10) {
-	            		layoutParams.leftMargin = X - _xDelta;
+	            	//Moving left - check for edge
+	            	int newLeftMargin = X - _xDelta;
+	            	if (newLeftMargin <1) {
+	            		newLeftMargin = 1;
 	            	}
+	            	layoutParams.leftMargin = newLeftMargin;
+            		//Toast.makeText(getApplicationContext(), "layoutParams.leftMargin: " + Integer.toString(layoutParams.leftMargin) + "parentLeftMargin: " + Integer.toString(parentLeftMargin), Toast.LENGTH_SHORT).show();
 	            }
 	            if ((layoutParams.leftMargin < X - _xDelta)) {
-	            	Toast.makeText(getApplicationContext(), "Moving Right " , Toast.LENGTH_SHORT).show();
-	            	Toast.makeText(getApplicationContext(), "getRight: " + Integer.toString(view.getRight()), Toast.LENGTH_SHORT).show();
-	            	if ( view.getParent() XXXXX get the width of the parent and subtract the getRight view.getRight() > 10) {
-	            		layoutParams.leftMargin = X - _xDelta;
+	            	//Moving right - check for edge
+	            	View parentView= (View)view.getParent();
+	            	int parentWidth = parentView.getWidth();
+	            	int newLongLeftMargin = X - _xDelta;
+	            	if ( newLongLeftMargin > (parentWidth - viewWidth) ) {
+	            		//we are at the right edge
+	            		newLongLeftMargin = parentWidth - viewWidth;
 	            	}
+	            	layoutParams.leftMargin = newLongLeftMargin;
 	            }
-	            if (view.getTop() > 10 & _yDelta < 10 ) {
-	            	layoutParams.topMargin = Y - _yDelta;
+	            if ((layoutParams.topMargin > Y - _yDelta)) {
+	            	//Moving up - check for top
+	            	int newTopMargin = Y - _yDelta;
+		            if (newTopMargin < 1 ) {
+		            	//We are at the top
+		            	newTopMargin = 1;
+		            }
+		            layoutParams.topMargin = newTopMargin;
 	            }
+	            if ((layoutParams.topMargin < Y - _yDelta)) {
+	            	//Moving down - check for bottom
+	            	View parentView= (View)view.getParent();
+	            	int parentHeight = parentView.getHeight();
+	            	int newTallTopMargin = Y - _yDelta;
+	            	if ( newTallTopMargin > ( parentHeight - viewHeight) ) {
+	            		//we are at the bottom
+	            		newTallTopMargin = parentHeight - viewHeight;
+	            	}
+	            	layoutParams.topMargin = newTallTopMargin;
+	            }
+	            
 	            layoutParams.rightMargin = -250;
 	            layoutParams.bottomMargin = -250;
 	            view.setLayoutParams(layoutParams);
