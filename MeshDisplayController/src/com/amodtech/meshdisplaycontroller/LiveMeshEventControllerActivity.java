@@ -181,8 +181,8 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	    TextView clientIdTextView = (TextView)clientPhoneView.findViewById(id.clientIDTextView);
 	    clientIdTextView.setText(clientToDisplay.id);
 	    
-	    //Set the text to display
-	    EditText displayEditText = (EditText)clientPhoneView.findViewById(id.eventIdEditText);
+	    //Set the text to display in the edit text and set the edit text listener
+	    EditText displayEditText = (EditText)clientPhoneView.findViewById(id.clientDisplayEditText);
 	    displayEditText.setText(clientToDisplay.textToDisplay);
 	    displayEditText.addTextChangedListener(new TextWatcher(){
 	        public void afterTextChanged(Editable s) {
@@ -203,7 +203,7 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	        }
 	        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
 	        public void onTextChanged(CharSequence s, int start, int before, int count){}
-	    }); 
+	    });
 
 	    clientPhoneView.setOnTouchListener(this);
 	    eventDisplayArea.addView(clientPhoneView);
@@ -495,5 +495,4 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
         	}
        }
 	}
-
 }

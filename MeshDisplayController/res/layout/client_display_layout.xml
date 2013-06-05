@@ -14,7 +14,7 @@
         android:background="@drawable/blank_android_phone">
 
 	    <EditText
-	         android:id="@+id/eventIdEditText"
+	         android:id="@+id/clientDisplayEditText"
 	         android:layout_width="fill_parent"
 	         android:layout_height="match_parent"
 	         android:layout_marginTop="5dp"
@@ -24,7 +24,7 @@
 	         android:singleLine="true"
 	         android:textColor="@android:color/black"
 	         android:background="#00000000"
-	         android:text="A" >
+	         android:text="" >
 	     </EditText>
 	                   
 	</LinearLayout>
@@ -39,5 +39,5 @@
           android:singleLine="true"
           android:gravity="center"
           android:textColor="@android:color/black"
-          android:text="Test"/>
+          android:text=""/>
 </LinearLayout>
