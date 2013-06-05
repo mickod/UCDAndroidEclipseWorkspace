@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.os.AsyncTask;
@@ -111,7 +110,8 @@ public class EntryScreenAvtivity extends Activity {
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"), 8192);
-                writer.write(getQuery(params));
+                String paramString = URLEncodedUtils.format(params, "utf-8");
+                writer.write(paramString);
                 writer.close();
                 os.close();
                 
@@ -157,26 +157,6 @@ public class EntryScreenAvtivity extends Activity {
         		Toast.makeText(getApplicationContext(), R.string.connection_problem, Toast.LENGTH_SHORT).show();
         	}
        }
-        
-        private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
-        	//utility method to help build the post method - see: http://stackoverflow.com/a/13486223/334402
-            StringBuilder result = new StringBuilder();
-            boolean first = true;
-
-            for (NameValuePair pair : params)
-            {
-                if (first)
-                    first = false;
-                else
-                    result.append("&");
-
-                result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
-                result.append("=");
-                result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
-            }
-
-            return result.toString();
-        }
-    }
-
+	}
+	
 }

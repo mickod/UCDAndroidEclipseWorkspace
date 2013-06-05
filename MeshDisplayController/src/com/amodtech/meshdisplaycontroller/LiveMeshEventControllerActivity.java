@@ -1,16 +1,23 @@
 package com.amodtech.meshdisplaycontroller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Random;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -19,14 +26,16 @@ import com.amodtech.meshdisplaycontroller.R.id;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +49,7 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	 */
 	
 	private PollServerForClients serverPollTask;
+	private SetTextForDeviceTask setTextTask;
 	private ViewGroup eventDisplayArea;
 	private HashMap<String, View> clientDisplayMap = new HashMap<String, View>();
 	private int _xDelta;
@@ -143,7 +153,7 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	    return true;
 	}
 	
-	private void displayNewClient(MeshDisplayClient clientToDisplay) {
+	private void displayNewClient(final MeshDisplayClient clientToDisplay) {
 		//This method add a new client to the event Display
 		
 		//Check if this is the controller and if so do not display it
@@ -174,6 +184,26 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	    //Set the text to display
 	    EditText displayEditText = (EditText)clientPhoneView.findViewById(id.eventIdEditText);
 	    displayEditText.setText(clientToDisplay.textToDisplay);
+	    displayEditText.addTextChangedListener(new TextWatcher(){
+	        public void afterTextChanged(Editable s) {
+	        	//New text entered - create a new task to send the text to the server
+	        	Log.d("LiveMeshEventControllerActivity displayEditText.addTextChangedListener", "Text changed: " + s.toString());
+	        	String newText = s.toString();
+	        	if (TextUtils.isEmpty(newText)) {
+	        		newText = "%20";
+	        	}
+	        	Log.d("LiveMeshEventControllerActivity displayEditText.addTextChangedListener", "newText: " + s.toString());
+	        	setTextTask = new SetTextForDeviceTask();
+	        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	        		setTextTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, clientToDisplay.id, newText);
+	        	} else {
+	        		setTextTask.execute(clientToDisplay.id, newText);
+	        	}
+
+	        }
+	        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+	        public void onTextChanged(CharSequence s, int start, int before, int count){}
+	    }); 
 
 	    clientPhoneView.setOnTouchListener(this);
 	    eventDisplayArea.addView(clientPhoneView);
@@ -378,9 +408,92 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 	}
 
 
-
-
-
-
+	private class SetTextForDeviceTask extends AsyncTask<String, Void, Integer> {
+		/*
+		 * Private AsynchTask to message server with new text for a client
+		 */
+        @Override
+        protected Integer doInBackground(String... args) {
+        	Log.d("LiveMeshEventControllerActivity SetTextForDeviceTask", "");
+           	//Get the meshDisplayEngine object and set the event ID
+        	MeshDisplayControllerApplictaion appObject = (MeshDisplayControllerApplictaion)LiveMeshEventControllerActivity.this.getApplicationContext();
+        	MeshDisplayControllerEngine meshDisplayEngine = appObject.getAppMeshDisplayControllerEngine();
+              
+            //Send the POST request to the HTTP server and check that an OK is received
+        	InputStream is = null;
+        	int response = 0;
+            StringBuffer receivedMessage = new StringBuffer();
+            try {
+                URL url = new URL(meshDisplayEngine.getServerBaseURL() + "/event_client_text");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(10000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                
+                //Add the POST parameters
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("event_id", meshDisplayEngine.eventID));
+                params.add(new BasicNameValuePair("client_id", args[0])); 
+                params.add(new BasicNameValuePair("text", args[1]));
+                Log.d("LiveMeshEventControllerActivity getQuery", "args[0]: " + args[0] + "  args[1]: " + args[1]);
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"), 8192);
+                String paramString = URLEncodedUtils.format(params, "utf-8");
+                Log.d("LiveMeshEventControllerActivity getQuery", "paramString: " + paramString);
+                writer.write(paramString);
+                writer.close();
+                os.close();
+                
+                // Starts the query
+                conn.connect();
+                
+                //For this case just check the response code - we are not interested in the response itself
+                response = conn.getResponseCode();
+                is = conn.getInputStream();
+                is = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is), 8192);
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                	receivedMessage = receivedMessage.append(line);
+                }
+                reader.close();
+                
+                return response;
+                
+            } catch (IOException e) {
+				//Some IO problem occurred - dump stack and inform caller
+            	Log.d("LiveMeshEventControllerActivity SetTextForDeviceTask", "exception posting join event request - response code: " 
+            						+ response + " Response message: " + receivedMessage);
+				e.printStackTrace();
+				return 0;
+			} finally {
+	            // Makes sure that the InputStream is closed after the app is
+	            // finished using it.
+                if (is != null) {
+                	try {
+                		is.close();
+                	} catch (IOException e) {
+        				//Some IO problem occurred while closing is - just to a stack dump in this case
+                		Log.d("LiveMeshEventControllerActivity SetTextForDeviceTask", "exception closing is file");
+        				e.printStackTrace();
+                	}
+                } 
+            }
+        }
+        
+        @Override
+        protected void onPostExecute(Integer responseCode) {
+        	// onPostExecute displays the results of the AsyncTask.
+        	
+            //Check the result and move to new Activity if appropriate
+        	if (responseCode != 200 & responseCode != 210) {
+        		//Inform the user there was a problem
+        		Toast.makeText(getApplicationContext(), R.string.connection_problem, Toast.LENGTH_SHORT).show();
+        	}
+       }
+	}
 
 }
