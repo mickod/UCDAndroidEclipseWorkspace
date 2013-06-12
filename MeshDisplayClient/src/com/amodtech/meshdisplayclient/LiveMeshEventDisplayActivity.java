@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -308,7 +309,8 @@ public class LiveMeshEventDisplayActivity extends Activity implements LocationLi
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"), 8192);
-                writer.write(getQuery(params));
+                String paramString = URLEncodedUtils.format(params, "utf-8");
+                writer.write(paramString);
                 writer.close();
                 os.close();
                 
@@ -367,25 +369,5 @@ public class LiveMeshEventDisplayActivity extends Activity implements LocationLi
         	//Leave the activity
         	finish();
        }
-        
-        private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
-        	//utility method to help build the post method - see: http://stackoverflow.com/a/13486223/334402
-            StringBuilder result = new StringBuilder();
-            boolean first = true;
-
-            for (NameValuePair pair : params)
-            {
-                if (first)
-                    first = false;
-                else
-                    result.append("&");
-
-                result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
-                result.append("=");
-                result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
-            }
-
-            return result.toString();
-        }
     }
 }

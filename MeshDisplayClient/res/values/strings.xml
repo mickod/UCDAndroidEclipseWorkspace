@@ -30,8 +30,8 @@
     <string name="enter_event_manaully_text_box_title">Enter Event Details</string>
     <string name="enter_event_manaully_join_button_label">Join</string>
     <string name="enter_event_manaully_back_button_label">back</string>
-    <string name="enter_event_manaully_event_id_hint">Event Id</string>
-    <string name="enter_event_manaully_client_id_hint">Client Id</string>
+    <string name="enter_event_manaully_event_id_hint">Event Id (max 10 characters)</string>
+    <string name="enter_event_manaully_client_id_hint">Client Id (max 7 characters)</string>
     
     <!-- Scan event entry Activity strings -->
     <string name="scanEventEntry_title">Scan Your Event Details</string>

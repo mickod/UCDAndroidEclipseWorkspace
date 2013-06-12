@@ -21,6 +21,8 @@
    	    android:layout_height="50dp"
    	    android:layout_below="@+id/enterEventManuallyTitle"
    	    android:layout_marginTop="19dp"
+   	    android:singleLine="true"
+   	    android:maxLength="10"
    	    android:hint="@string/enter_event_manaully_event_id_hint"
    	    android:ems="10" >
 	    <requestFocus />
@@ -32,6 +34,8 @@
    	    android:layout_height="50dp"
    	    android:layout_below="@+id/eventIdEditText"
    	    android:layout_marginTop="19dp"
+   	    android:singleLine="true"
+   	    android:maxLength="7"
    	    android:hint="@string/enter_event_manaully_client_id_hint"
    	    android:ems="10" >
 	</EditText>

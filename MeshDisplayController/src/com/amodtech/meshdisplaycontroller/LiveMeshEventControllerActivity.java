@@ -168,7 +168,22 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 		
 		//Create offset for display to stop it landing on top of the last one
 		int offsetMultiplier = clientDisplayMap.size();
-		int viewWidth = 200;
+		int viewWidth = clientPhoneView.getWidth();
+		int viewHeight = clientPhoneView.getHeight();
+		int topMargin = 50;
+		int eventDisplayWidth = eventDisplayArea.getWidth();
+		int eventDisplayHeight = eventDisplayArea.getHeight();
+		int leftMargin = 10 + (viewWidth*(1+offsetMultiplier));
+		if (leftMargin > eventDisplayWidth - viewWidth) {
+			//Row is full so go to next row - note this supports only two rows for now
+			topMargin = topMargin + viewHeight + 20;
+			leftMargin = leftMargin - eventDisplayWidth;
+			if (topMargin > eventDisplayHeight - viewHeight) {
+				//Display is full - simply return for now
+				Log.d("LiveMeshEventControllerActivity displayNewClient", "Display full can't display client: " + clientToDisplay.id);
+				return;
+			}
+		}
 
 	    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 220);
 	    layoutParams.leftMargin = 50 +(viewWidth*(1+offsetMultiplier));

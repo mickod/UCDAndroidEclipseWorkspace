@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
@@ -24,6 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -38,6 +40,10 @@ public class EnterEventManuallyActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enter_event_manually);
+		
+        //Hide the soft keyboard
+        getWindow().setSoftInputMode(
+        	      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
         //Set the join event button listener
         final Button joinButton = (Button) findViewById(R.id.entermanuallyJoinButton);
@@ -94,7 +100,8 @@ public class EnterEventManuallyActivity extends Activity {
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"), 8192);
-                writer.write(getQuery(params));
+                String paramString = URLEncodedUtils.format(params, "utf-8");
+                writer.write(paramString);
                 writer.close();
                 os.close();
                 
@@ -140,25 +147,5 @@ public class EnterEventManuallyActivity extends Activity {
         		Toast.makeText(getApplicationContext(), R.string.connection_problem, Toast.LENGTH_SHORT).show();
         	}
        }
-        
-        private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
-        	//utility method to help build the post method - see: http://stackoverflow.com/a/13486223/334402
-            StringBuilder result = new StringBuilder();
-            boolean first = true;
-
-            for (NameValuePair pair : params)
-            {
-                if (first)
-                    first = false;
-                else
-                    result.append("&");
-
-                result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
-                result.append("=");
-                result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
-            }
-
-            return result.toString();
-        }
     }
 }
