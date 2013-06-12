@@ -1,6 +1,7 @@
 package com.amodtech.meshdisplayclient;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -36,11 +37,11 @@ public class MainMenuActivity extends Activity {
             }
         });
         
-        //Set the scan button listener
-        final Button menuScanButton = (Button) findViewById(R.id.scanButton);
+        //Set the preferences button listener
+        final Button menuScanButton = (Button) findViewById(R.id.preferencesButton);
         menuScanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ScanEventEntryActivity.class);
+                Intent intent = new Intent(v.getContext(), MeshDisplayPreferencesActivity.class);
                 startActivity(intent);
             }
         });

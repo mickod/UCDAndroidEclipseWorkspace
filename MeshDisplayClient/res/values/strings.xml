@@ -10,7 +10,7 @@
     
     <!-- Main menu strings -->
     <string name="enter_event_button_label">Enter Event Manually</string>
-    <string name="scan_button_label">Scan To Enter Event</string>
+    <string name="pref_button_label">Preferences</string>
     <string name="about_button_label">About</string>
     <string name="main_menu_text_box_title">Main Menu</string>
     <string name="main_menu_picture_alt">Image Unavailable</string>
@@ -53,6 +53,11 @@
     <string name="client_id_label">Client ID:</string>
     <string name="latitude_id_label">Latitude:</string>
     <string name="longitude_id_label">Longitude:</string>
+    
+    <!-- Preferences activity strings -->
+    <string name="preferences_text_box_title">Preferences</string>
+    <string name="base_server_url_hint">Enter Server URL</string>
+    <string name="save_preferences_button_label">Save</string>
     
     <!-- User messages from activities -->
     <string name="connection_problem">There was a problem with the connection</string>

@@ -47,5 +47,8 @@
 		<activity
 		    android:name="com.amodtech.meshdisplayclient.EventInfoActivity">
 		</activity>
+		<activity
+		    android:name="com.amodtech.meshdisplayclient.MeshDisplayPreferencesActivity">
+		</activity>
 	</application>
 </manifest>

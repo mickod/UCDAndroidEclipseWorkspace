@@ -12,7 +12,7 @@ public class MeshDisplayApplictaion extends Application {
 	public void onCreate() {
 		
 		//Instantiate the meshDisplayEngine
-		this.meshDispEngine = new MeshDisplayClientEngine();
+		this.meshDispEngine = new MeshDisplayClientEngine(this.getApplicationContext());
 	}
 	
 	public MeshDisplayClientEngine getAppMeshDisplayEngine() {

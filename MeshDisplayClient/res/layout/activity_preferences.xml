@@ -1,30 +1,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainMenuActivity" >
+    android:paddingTop="@dimen/activity_vertical_margin" >
     
    <TextView
-       android:id="@+id/mainMenuTitle"
+       android:id="@+id/preferencesTitle"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_centerHorizontal="true"
-       android:text="@string/main_menu_text_box_title"
+       android:text="@string/preferences_text_box_title"
        android:textAppearance="?android:attr/textAppearanceLarge" />
    
-	<ImageView
-	    android:id="@+id/mainMenuPicture"
-		android:layout_below="@+id/mainMenuTitle"
-		android:layout_above="@+id/buttonArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/main_menu_picture_alt" />
+   	<EditText
+   	    android:id="@+id/baseServerURLEditText"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="50dp"
+   	    android:layout_below="@+id/preferencesTitle"
+   	    android:layout_marginTop="19dp"
+   	    android:singleLine="true"
+   	    android:hint="@string/base_server_url_hint"
+   	    android:ems="10" >
+	    <requestFocus />
+	</EditText>
 	
 	<LinearLayout
 	    android:id="@+id/buttonArea"
@@ -33,29 +34,24 @@
         android:layout_height="wrap_content"
 	    android:orientation="vertical"
 	    >
-    
-	    <Button
-	        android:id="@+id/enterEventButton"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
-	        android:text="@string/enter_event_button_label" />
-	    
+  
 	   	<Button
-	   	    android:id="@+id/preferencesButton"
+	   	    android:id="@+id/savePreferencesButton"
 	   	    android:layout_width="match_parent"
 	   	    android:layout_height="wrap_content"
 	   	    android:layout_gravity="center"
-	   	    android:text="@string/pref_button_label" />
+	   	    android:text="@string/save_preferences_button_label" />
 	   	
 	  	<Button
-	        android:id="@+id/aboutButton"
+	        android:id="@+id/preferencesBackButton"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
 	        android:layout_weight="1"
-	        android:text="@string/about_button_label" />
+	        android:text="@string/enter_event_manaully_back_button_label" />
     
     </LinearLayout>
+
+
 
 </RelativeLayout>

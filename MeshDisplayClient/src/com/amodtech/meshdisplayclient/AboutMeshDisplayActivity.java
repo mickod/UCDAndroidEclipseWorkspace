@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class AboutMeshDisplayActivity extends Activity {
 	/*
-	 * This class is provides user help for the application
+	 * This class provides user help for the application
 	 */
 	
 	@Override

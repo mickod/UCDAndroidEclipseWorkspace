@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory
+        android:title="Server URL">
+        <EditTextPreference
+            android:key="ServerURL"
+            android:title="Server URL" 
+            android:summary="Enter the server URL"
+            android:dialogTitle="Server URL"
+            android:dialogMessage="Provide a server URL"    
+            android:defaultValue="http://ec2-54-228-103-112.eu-west-1.compute.amazonaws.com" />
+    </PreferenceCategory>
+    
+</PreferenceScreen>
