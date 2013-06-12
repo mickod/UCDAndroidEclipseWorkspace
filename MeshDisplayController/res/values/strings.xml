@@ -22,8 +22,7 @@
     <string name="about_mesh_display_text">
         Mesh Display allows multiple phones to be combined
 		to create dynamic displays. This Controller allows you enter events and view all 
-		clients that register for the event.\n\nOnce a dsiplay event has been created you can enter it simply
-		by entering your event id and client id.\n\nNote that this app requires the server 
+		clients that register for the event.\n\nClients can be positioned on the screen by touching and dragging the client id and text can be added by tapping on the client screen. \n\nNote that this app requires the server 
 		to be set up - please contact us on +353 87 7784955 to set this for you if you are
 		testing this app
 	</string>
