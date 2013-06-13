@@ -30,23 +30,14 @@
 	    android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-	    android:orientation="horizontal"
+	    android:orientation="vertical"
 	    >
- 
-	    <Button
-	        android:id="@+id/eventInfoButton"
-	        android:layout_width="250dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
-	        android:layout_weight="1"
-	        android:text="@string/event_info_button_label" />
-	   	
+ 	
 	  	<Button
 	        android:id="@+id/liveMeshEventBackButton"
 	        android:layout_width="250dp"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        android:layout_weight="1"
 	        android:text="@string/general_back_button_label" />
     
     </LinearLayout>

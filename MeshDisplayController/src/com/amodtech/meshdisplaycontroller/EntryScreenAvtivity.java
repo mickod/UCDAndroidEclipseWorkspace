@@ -72,6 +72,16 @@ public class EntryScreenAvtivity extends Activity {
                 startActivity(intent);
             }
         });	
+        
+        //Set the preferences button listener
+        final Button menuPreferencesButton = (Button) findViewById(R.id.preferencesButton);
+        menuPreferencesButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MeshDisplayControllerPreferencesActivity.class);
+                startActivity(intent);
+            }
+        });	
+        
 	}
 
 	@Override

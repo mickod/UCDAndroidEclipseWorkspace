@@ -46,22 +46,39 @@
 	   	    android:ems="10" >
 		    <requestFocus />
 		</EditText>
- 
-	    <Button
-	        android:id="@+id/enterEventButton"
-	        android:layout_width="250dp"
+		
+	    <LinearLayout
+		    android:id="@+id/innerButtonArea"
+		    android:layout_alignParentBottom="true"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
-	        android:layout_weight="1"
-	        android:text="@string/enter_event_button_label" />
-	   	
-	  	<Button
-	        android:id="@+id/aboutButton"
-	        android:layout_width="250dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
-	        android:layout_weight="1"
-	        android:text="@string/about_button_label" />
+		    android:orientation="horizontal"
+		    >
+    	
+		  	<Button
+		        android:id="@+id/aboutButton"
+		        android:layout_width="250dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_weight="1"
+		        android:text="@string/about_button_label" />
+		  	
+		 	<Button
+		        android:id="@+id/enterEventButton"
+		        android:layout_width="250dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_weight="1"
+		        android:text="@string/enter_event_button_label" />
+		  	
+		  	<Button
+		        android:id="@+id/preferencesButton"
+		        android:layout_width="250dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_weight="1"
+		        android:text="@string/preferences_button_label" />
+		  	</LinearLayout>
     
     </LinearLayout>
 

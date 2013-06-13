@@ -12,6 +12,7 @@
     <string name="enter_event_button_label">Enter Event</string>
     <string name="scan_button_label">Scan To Enter Event</string>
     <string name="about_button_label">About</string>
+    <string name="preferences_button_label">Preferences</string>
     <string name="main_menu_text_box_title">Main Menu</string>
     <string name="main_menu_picture_alt">Image Unavailable</string>
     <string name="event_id_hint">Event Id</string>
