@@ -6,10 +6,10 @@
         android:title="Server URL">
         <EditTextPreference
             android:key="ServerURL"
-            android:title="Server URL" 
-            android:summary="Enter the server URL"
-            android:dialogTitle="Server URL"
-            android:dialogMessage="Provide a server URL"    
+            android:title="@string/pref_server_url_title" 
+            android:summary="@string/pref_server_url_edittext_summary"
+            android:dialogTitle="@string/pref_server_url_title"
+            android:dialogMessage="@string/pref_server_url_edittext_summary"    
             android:defaultValue="http://ec2-54-228-103-112.eu-west-1.compute.amazonaws.com" />
     </PreferenceCategory>
     

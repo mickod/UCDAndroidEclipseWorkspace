@@ -19,9 +19,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" 
         android:name=".MeshDisplayApplictaion">
+        
         <activity
             android:name="com.amodtech.meshdisplayclient.MainMenuActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,25 +32,32 @@
         </activity>
         
         <activity 
-            android:name="com.amodtech.meshdisplayclient.AboutMeshDisplayActivity">
-		</activity>
+            android:name="com.amodtech.meshdisplayclient.AboutMeshDisplayActivity" 
+            android:screenOrientation="portrait">
+        </activity>
 		<activity
-		    android:name="com.amodtech.meshdisplayclient.EnterEventManuallyActivity">
-		</activity>
+		    android:name="com.amodtech.meshdisplayclient.EnterEventManuallyActivity" 
+            android:screenOrientation="portrait">
+        </activity>
 		<activity
-		    android:name="com.amodtech.meshdisplayclient.ScanEventEntryActivity">
-		</activity>
+		    android:name="com.amodtech.meshdisplayclient.ScanEventEntryActivity" 
+            android:screenOrientation="portrait">
+        </activity>
 		<activity
-		    android:name="com.amodtech.meshdisplayclient.JoinEventWithScannedDetailsActivity">
-		</activity>
+		    android:name="com.amodtech.meshdisplayclient.JoinEventWithScannedDetailsActivity" 
+            android:screenOrientation="portrait">
+        </activity>
 		<activity
-		    android:name="com.amodtech.meshdisplayclient.LiveMeshEventDisplayActivity">
-		</activity>
+		    android:name="com.amodtech.meshdisplayclient.LiveMeshEventDisplayActivity" 
+            android:screenOrientation="portrait">
+        </activity>
 		<activity
-		    android:name="com.amodtech.meshdisplayclient.EventInfoActivity">
-		</activity>
+		    android:name="com.amodtech.meshdisplayclient.EventInfoActivity" 
+            android:screenOrientation="portrait">
+        </activity>
 		<activity
-		    android:name="com.amodtech.meshdisplayclient.MeshDisplayPreferencesActivity">
-		</activity>
+		    android:name="com.amodtech.meshdisplayclient.MeshDisplayPreferencesActivity" 
+            android:screenOrientation="portrait">
+        </activity>
 	</application>
 </manifest>

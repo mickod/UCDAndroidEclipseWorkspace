@@ -28,7 +28,7 @@ public class MeshDisplayClientEngine {
 	public String getServerBaseURL() {
 		//Getter for the base URL
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.appContext);
-        String baseURL = AWS_BASE_URL; //sharedPref.getString("ServerURL", serverBaseUrl);
+        String baseURL = sharedPref.getString("ServerURL", serverBaseUrl);
 		return baseURL + "/index.php/api/example";
 	}
 	

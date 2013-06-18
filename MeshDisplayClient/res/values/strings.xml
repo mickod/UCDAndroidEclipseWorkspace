@@ -58,6 +58,10 @@
     <string name="preferences_text_box_title">Preferences</string>
     <string name="base_server_url_hint">Enter Server URL</string>
     <string name="save_preferences_button_label">Save</string>
+    <string name="pref_server_url_title">Server URL</string>
+    <string name="pref_server_url_edittext_title">Mesh Display Controller URL</string>
+    <string name="pref_server_url_edittext_summary">Enter the server URL</string>
+    <string name="pref_header_summary">The URL of the Mesh Display Server</string>
     
     <!-- User messages from activities -->
     <string name="connection_problem">There was a problem with the connection</string>

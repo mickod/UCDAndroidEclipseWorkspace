@@ -31,6 +31,12 @@
     <!-- Live Event Controller Activity strings -->
     <string name="event_info_button_label">Info</string>
     <string name="live_event_text_box_title">Live Mesh Display Event</string>
+    
+    <!-- Preference activity strings -->
+    <string name="pref_server_url_title">Server URL</string>
+    <string name="pref_server_url_edittext_title">Mesh Display Controller URL</string>
+    <string name="pref_server_url_edittext_summary">Enter the server URL</string>
+    <string name="pref_header_summary">The URL of the Mesh Display Server</string>
 	
     <!-- User messages from activities -->
     <string name="connection_problem">There was a problem with the connection</string>

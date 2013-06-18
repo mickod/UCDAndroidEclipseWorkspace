@@ -166,28 +166,27 @@ public class LiveMeshEventControllerActivity extends Activity implements View.On
 		LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View clientPhoneView = inflater.inflate(R.layout.client_display_layout, null);
 		
-		//Create offset for display to stop it landing on top of the last one
+		//Create offset for display to stop it landing on top of the last one - should update to remove any
+		//hard coded values
 		int offsetMultiplier = clientDisplayMap.size();
-		int viewWidth = clientPhoneView.getWidth();
-		int viewHeight = clientPhoneView.getHeight();
+		int viewWidth = 150; //clientPhoneView.getWidth();
+		int viewHeight = 220; //clientPhoneView.getHeight();
 		int topMargin = 50;
 		int eventDisplayWidth = eventDisplayArea.getWidth();
 		int eventDisplayHeight = eventDisplayArea.getHeight();
-		int leftMargin = 10 + (viewWidth*(1+offsetMultiplier));
-		if (leftMargin > eventDisplayWidth - viewWidth) {
-			//Row is full so go to next row - note this supports only two rows for now
-			topMargin = topMargin + viewHeight + 20;
-			leftMargin = leftMargin - eventDisplayWidth;
-			if (topMargin > eventDisplayHeight - viewHeight) {
-				//Display is full - simply return for now
-				Log.d("LiveMeshEventControllerActivity displayNewClient", "Display full can't display client: " + clientToDisplay.id);
-				return;
-			}
+		int leftMargin = 50 + (viewWidth*(1+offsetMultiplier));
+		
+		//If the top row is full just add everything in the next row in approx the same location and
+		//the user can drag them to where they want them
+		if (leftMargin > (eventDisplayWidth - viewWidth)) {
+			int randomAdjuster = 20 + (int)(Math.random() * ((50 - 20) + 1));
+			leftMargin = 50 + randomAdjuster;
+			topMargin = 50 + viewHeight + 20 + randomAdjuster;
 		}
 
 	    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 220);
-	    layoutParams.leftMargin = 50 +(viewWidth*(1+offsetMultiplier));
-	    layoutParams.topMargin = 50;
+	    layoutParams.leftMargin = leftMargin;
+	    layoutParams.topMargin = topMargin;
 	    layoutParams.bottomMargin = -250;
 	    layoutParams.rightMargin = -250;
 	    clientPhoneView.setLayoutParams(layoutParams);

@@ -13,7 +13,7 @@ public class MeshDisplayControllerApplictaion extends Application{
 	public void onCreate() {
 		
 		//Instantiate the meshDisplayEngine
-		this.meshDispControllerEngine = new MeshDisplayControllerEngine();
+		this.meshDispControllerEngine = new MeshDisplayControllerEngine(this.getApplicationContext());
 	}
 	
 	public MeshDisplayControllerEngine getAppMeshDisplayControllerEngine() {

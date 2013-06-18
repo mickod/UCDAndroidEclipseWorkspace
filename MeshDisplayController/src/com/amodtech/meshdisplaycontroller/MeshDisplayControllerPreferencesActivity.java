@@ -13,13 +13,6 @@ public class MeshDisplayControllerPreferencesActivity extends
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Add a button to the header list.
-        if (hasHeaders()) {
-            Button button = new Button(this);
-            button.setText("Some action");
-            setListFooter(button);
-        }
     }
 
     /**
@@ -42,7 +35,7 @@ public class MeshDisplayControllerPreferencesActivity extends
             // want this in a shared function that is used to retrieve the
             // SharedPreferences wherever they are needed.
             PreferenceManager.setDefaultValues(getActivity(),
-                    R.xml.mesh_display_controller_preferences_headers, false);
+                    R.xml.server_url_preference_fragment, false);
 
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.server_url_preference_fragment);
