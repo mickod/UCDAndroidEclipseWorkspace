@@ -8,7 +8,7 @@
             android:title="@string/pref_server_url_edittext_title" 
             android:summary="@string/pref_server_url_edittext_summary"
             android:dialogTitle="@string/pref_server_url_title"
-            android:dialogMessage="@string/pref_server_url_edittext_summary"    
+            android:dialogMessage="@string/pref_server_url_edittext_summary"  
             android:defaultValue="http://ec2-54-228-103-112.eu-west-1.compute.amazonaws.com" />
     </PreferenceCategory>
     

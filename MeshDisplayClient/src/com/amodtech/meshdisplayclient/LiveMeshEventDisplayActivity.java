@@ -7,10 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +27,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +43,8 @@ public class LiveMeshEventDisplayActivity extends Activity implements LocationLi
 	private LocationManager locationManager;
 	private String loctaionProvider = null;
 	private Criteria loctaionCriteria = new Criteria();
+	
+	protected PowerManager.WakeLock mWakeLock;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +108,9 @@ public class LiveMeshEventDisplayActivity extends Activity implements LocationLi
 		//Stop location updates
 		locationManager.removeUpdates(this);
 		
+		//Release wakelock
+		this.mWakeLock.release();
+		
 		super.onPause();
 	}
 	
@@ -115,6 +119,11 @@ public class LiveMeshEventDisplayActivity extends Activity implements LocationLi
 		Log.d("LiveMeshEventDisplayActivity","onResume");
 		
 		super.onResume();
+		
+		//Keep the screen on while this activity is running
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
 		
 		//Request location updates
 		//loctaionCriteria.setAccuracy(Criteria.ACCURACY_FINE);

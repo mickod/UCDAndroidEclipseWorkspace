@@ -15,16 +15,19 @@
     <string name="preferences_button_label">Preferences</string>
     <string name="main_menu_text_box_title">Main Menu</string>
     <string name="main_menu_picture_alt">Image Unavailable</string>
-    <string name="event_id_hint">Event Id</string>
+    <string name="event_id_hint">Enter or create an event Id</string>
     
     <!-- About Mesh Display Activity strings -->
     <string name="about_mesh_display_title">About Mesh Display</string>
     <string name="about_mesh_display_back_button_label">Back</string>
     <string name="about_mesh_display_text">
         Mesh Display allows multiple phones to be combined
-		to create dynamic displays. This Controller allows you enter events and view all 
-		clients that register for the event.\n\nClients can be positioned on the screen by touching and dragging the client id and text can be added by tapping on the client screen. \n\nNote that this app requires the server 
-		to be set up - please contact us on +353 87 7784955 to set this for you if you are
+		to create dynamic displays. This Controller allows you create or enter events and view all 
+		clients that register for the event.\n\nClients can be positioned on the screen by touching and 
+		dragging the client id and text can be added by tapping on the client screen. Clients will automatically 
+		appear and disappear as they enter and leave the event.
+		\n\nNote that this app requires the Mesh Display server 
+		to be set up - please contact us on +353 87 7784955 to set this if you are
 		testing this app
 	</string>
 	

@@ -16,6 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -37,6 +38,10 @@ public class EntryScreenAvtivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_entry_screen);
+		
+        // Make sure default values are applied.  
+        PreferenceManager.setDefaultValues(this,
+                R.xml.server_url_preference_fragment, false);
 		
 		//Display the Main Menu image
         ImageView mainMenuImageView;

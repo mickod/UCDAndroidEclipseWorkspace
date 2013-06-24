@@ -9,6 +9,7 @@ import android.widget.Button;
 public class JoinEventWithScannedDetailsActivity extends Activity {
 	/*
 	 * This class is an Activity that allows a user to enter an event with scanned details.
+	 * **** This is not in use in this version of the applictaion ****
 	 */
 	
 	@Override

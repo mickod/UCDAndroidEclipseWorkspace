@@ -20,7 +20,9 @@
     <string name="about_mesh_display_back_button_label">Back</string>
     <string name="about_mesh_display_text">
         Mesh Display allows multiple phones to be combined
-		to create dynamic displays.\n\nOnce a dsiplay event has been created you can enter it simply
+		to create dynamic displays.\n\nThis app is a Mesh Display Client. Once a mesh 
+		display event has been created, by 
+		a Mesh Display Controller, you can enter it with this client app simply
 		by entering your event id and client id.\n\nNote that this app requires the server 
 		to be set up - please contact us on +353 87 7784955 to set this for you if you are
 		testing this app

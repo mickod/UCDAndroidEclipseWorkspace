@@ -16,5 +16,11 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <!-- Preferences style -->
+    <style name="PreferencesTheme">
+	    <item name="android:background">@android:color/darker_gray</item>
+	    <item name="android:textColor">@android:color/black</item>
+	</style>
 
 </resources>
